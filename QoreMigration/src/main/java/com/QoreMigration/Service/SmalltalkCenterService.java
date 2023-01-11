@@ -14,5 +14,6 @@ public interface SmalltalkCenterService {
 	public Object getpa_account_details();
 
 	public Object getpartition();
+	public List<?> getFlatFileData();
 
 }

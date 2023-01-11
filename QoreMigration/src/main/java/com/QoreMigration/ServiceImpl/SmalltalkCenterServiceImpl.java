@@ -137,5 +137,17 @@ public class SmalltalkCenterServiceImpl implements SmalltalkCenterService {
 		}
 		return 1;
 	}
+	
+	public List<?> getFlatFileData(){
+		try {
+			
+			//implment code to get flatfile data
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+		}
+		return null;
+		
+	}
 
 }
