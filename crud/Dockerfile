@@ -1,13 +1,15 @@
-#define base docker image 
-FROM openjdk:8-alpine	
-#COPY target/crud-0.0.1-SNAPSHOT.jar
-#CMD java -jar crud-0.0.1-SNAPSHOT.jar
+FROM maven:3.5-jdk-8-slim AS build
+WORKDIR /home/app
+COPY src /home/app/src
 
+COPY pom.xml /home/app/
 
-ADD target/crud-0.0.1-SNAPSHOT.jar crud.jar
+RUN mvn clean package -DskipTests 
 
+FROM openjdk:8-alpine
+COPY --from=0 /home/app/target/crud-0.0.1-SNAPSHOT.jar /tmp/crud.jar
 
-ENTRYPOINT ["java","-jar","crud.jar"]
-
+EXPOSE 80/tcp
+ENTRYPOINT ["java","-jar","/tmp/crud.jar"]
 
 
