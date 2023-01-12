@@ -93,6 +93,7 @@ public class PatientServiceImpl implements PatientService {
 		
 		  List<PatientModel> pt = (List<PatientModel>) repository.findAll();
 		  System.out.println(pt);
+		System.out.println("Muragesh");
 		 return pt;
 	}
 
