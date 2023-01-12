@@ -1,11 +1,96 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: "2023-01-12T12:17:59Z"
+  generation: 1
   labels:
     app: crud
+  managedFields:
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:labels:
+          .: {}
+          f:app: {}
+      f:spec:
+        f:progressDeadlineSeconds: {}
+        f:replicas: {}
+        f:revisionHistoryLimit: {}
+        f:selector: {}
+        f:strategy:
+          f:rollingUpdate:
+            .: {}
+            f:maxSurge: {}
+            f:maxUnavailable: {}
+          f:type: {}
+        f:template:
+          f:metadata:
+            f:labels:
+              .: {}
+              f:app: {}
+          f:spec:
+            f:containers:
+              k:{"name":"crud-sha256-1"}:
+                .: {}
+                f:image: {}
+                f:imagePullPolicy: {}
+                f:name: {}
+                f:resources: {}
+                f:terminationMessagePath: {}
+                f:terminationMessagePolicy: {}
+            f:dnsPolicy: {}
+            f:restartPolicy: {}
+            f:schedulerName: {}
+            f:securityContext: {}
+            f:terminationGracePeriodSeconds: {}
+    manager: GoogleCloudConsole
+    operation: Update
+    time: "2023-01-12T12:17:59Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:deployment.kubernetes.io/revision: {}
+      f:status:
+        f:conditions:
+          .: {}
+          k:{"type":"Available"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+          k:{"type":"Progressing"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+        f:observedGeneration: {}
+        f:replicas: {}
+        f:unavailableReplicas: {}
+        f:updatedReplicas: {}
+    manager: kube-controller-manager
+    operation: Update
+    subresource: status
+    time: "2023-01-12T12:24:52Z"
   name: crud
   namespace: default
+  resourceVersion: "23515"
+  uid: 9a5db830-cc08-40b7-94b2-2e9580ee76af
 spec:
+  progressDeadlineSeconds: 600
+  replicas: 3
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: crud
@@ -21,41 +106,10 @@ spec:
         app: crud
     spec:
       containers:
-      - args:
-        - --http_port=80
-        - --backend=127.0.0.1:80
-        - #--service=banqregistration.endpoints.qpathways-dev.cloud.goog
-        - --rollout_strategy=managed
-        - -z
-        - healthz
-        image: gcr.io/endpoints-release/endpoints-runtime:1
+      
+    -  image: gcr.io/GOOGLE_CLOUD_PROJECT/github.com/murageshyadwad/crud:COMMIT_SHA
         imagePullPolicy: IfNotPresent
-        name: esp
-        ports:
-        - containerPort: 8080
-          protocol: TCP
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /healthz
-            port: 8080
-            scheme: HTTP
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-#      - env:
-#        - name: BANQ_DB_HOST
-#          valueFrom:
-#            configMapKeyRef:
-#              key: BANQ_DB_HOST
-#              name: banqjava-config
-        
-        image: gcr.io/GOOGLE_CLOUD_PROJECT/github.com/murageshyadwad/java-service:COMMIT_SHA
-        imagePullPolicy: IfNotPresent
-        name: crud-sha256
+        name: crud-sha256-1
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -64,4 +118,21 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-status: {}
+status:
+  conditions:
+  - lastTransitionTime: "2023-01-12T12:17:59Z"
+    lastUpdateTime: "2023-01-12T12:18:05Z"
+    message: ReplicaSet "crud-65f674cfb5" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2023-01-12T12:20:25Z"
+    lastUpdateTime: "2023-01-12T12:20:25Z"
+    message: Deployment does not have minimum availability.
+    reason: MinimumReplicasUnavailable
+    status: "False"
+    type: Available
+  observedGeneration: 1
+  replicas: 3
+  unavailableReplicas: 3
+  updatedReplicas: 3
